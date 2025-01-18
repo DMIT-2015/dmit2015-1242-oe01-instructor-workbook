@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/dmit2015-1242-workbook-swunait-1.iml" filepath="$PROJECT_DIR$/.idea/dmit2015-1242-workbook-swunait-1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dmit2015-firebase-faces-app/dmit2015-firebase-faces-app.iml" filepath="$PROJECT_DIR$/dmit2015-firebase-faces-app/dmit2015-firebase-faces-app.iml" />
     </modules>
   </component>
 </project>
