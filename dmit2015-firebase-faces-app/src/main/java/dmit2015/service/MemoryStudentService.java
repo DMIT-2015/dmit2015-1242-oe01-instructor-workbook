@@ -26,10 +26,10 @@ public class MemoryStudentService implements StudentService {
         for (int counter = 1; counter <= 5; counter++) {
             var currentStudent = new Student();
             currentStudent.setId(UUID.randomUUID().toString());
-            // TODO: Generate fake data for applicable properties
-            // currentStudent.setProperty1(faker.providerName.methodName());
-            // currentStudent.setProperty2(faker.providerName.methodName());
-            // currentStudent.setProperty3(faker.providerName.methodName());
+
+            currentStudent.setFirstName(faker.name().firstName());
+            currentStudent.setLastName(faker.name().lastName());
+            currentStudent.setCourseSection("DMIT2015-OE01");
 
             students.add(currentStudent);
         }
@@ -38,6 +38,7 @@ public class MemoryStudentService implements StudentService {
 
     @Override
     public Student createStudent(Student student) {
+        student.setId(UUID.randomUUID().toString());
         students.add(student);
         return student;
     }
