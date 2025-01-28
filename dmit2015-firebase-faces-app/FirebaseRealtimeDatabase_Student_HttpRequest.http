@@ -6,7 +6,7 @@ Content-Type: application/json
 
 {
   "firstName": "Connor",
-  "lastName": "McSuspended",
+  "lastName": "McDavid",
   "courseSection": "DMIT2015-OE01"
 }
 
