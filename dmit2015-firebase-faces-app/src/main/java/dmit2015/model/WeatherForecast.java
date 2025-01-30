@@ -1,5 +1,9 @@
 package dmit2015.model;
 
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+
 import java.time.LocalDate;
 
 /**
@@ -10,8 +14,11 @@ import java.time.LocalDate;
  */
 public class WeatherForecast {
 
+    @Future(message = "Date must be in the future.")
     private LocalDate date;
 
+    @Min(value = -40,message = "TempC must be between -40 and 40")
+    @Max(value = 40,message = "TempC must be between -40 and 40")
     private int temperatureC;
 
     private String summary;
