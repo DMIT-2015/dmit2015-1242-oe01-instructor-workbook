@@ -74,6 +74,15 @@
                     <p:column headerText="Course Section">
                         <h:outputText value="#{currentItem.courseSection}"/>
                     </p:column>
+                    <p:column headerText="Picture">
+                        <h:graphicImage
+                            value="#{currentItem.imageDataUrl}"
+                            alt="Student Picture"
+                            width="128"
+                            height="128"
+                            rendered="#{not empty currentItem.imageDataUrl}"
+                            />
+                    </p:column>
 
                     <p:column exportable="false" ariaHeaderText="Actions">
                         <p:commandButton icon="pi pi-pencil"
@@ -100,7 +109,7 @@
                 </p:dataTable>
             </h:form>
 
-            <h:form id="dialogs">
+            <h:form id="dialogs" enctype="multipart/form-data">
                 <p:dialog header="Student Details" showEffect="fade" modal="true" widgetVar="manageStudentDialog"
                           responsive="true">
 
@@ -110,7 +119,7 @@
 
                     <p:outputPanel id="manage-Student-content" class="ui-fluid">
                         <p:outputPanel rendered="#{not empty currentStudentCrudView.selectedStudent}">
-                            <!-- TODO: Add input field for each editable property of the entity -->
+
                             <div class="field">
                                 <p:outputLabel for="@next">First Name</p:outputLabel>
                                 <p:inputText
@@ -131,6 +140,15 @@
                                         id="courseSection"
                                         value="#{currentStudentCrudView.selectedStudent.courseSection}">
                                 </p:inputText>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="@next">Picture</p:outputLabel>
+                                <p:fileUpload
+                                    id="fileUpload"
+                                    mode="simple"
+                                    skinSimple="true"
+                                    value="#{currentStudentCrudView.imageUploadedFile}"
+                                />
                             </div>
 
                         </p:outputPanel>

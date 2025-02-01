@@ -21,4 +21,6 @@ public class Student {
         message = "Course section must have pattern AAAA9999")
     private String courseSection;
 
+    private String imageDataUrl;
+
 }
