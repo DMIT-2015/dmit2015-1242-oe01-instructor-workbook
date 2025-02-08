@@ -62,7 +62,6 @@ public class JakartaPersistenceStudentServiceImplementationArquillianIT { // The
                 // .addAsLibraries(pomFile.resolve("org.eclipse:yasson:3.0.4").withTransitivity().asFile())
                 .addClass(ApplicationConfig.class)
                 .addClasses(Student.class, StudentService.class, JakartaPersistenceStudentService.class)
-                // TODO Add any additional libraries, packages, classes or resource files required
 //                .addAsLibraries(pomFile.resolve("jakarta.platform:jakarta.jakartaee-api:10.0.0").withTransitivity().asFile())
                 // .addPackage("dmit2015.entity")
                 .addAsResource("META-INF/persistence.xml")
@@ -90,13 +89,13 @@ public class JakartaPersistenceStudentServiceImplementationArquillianIT { // The
     @BeforeEach
     void beforeEachTestMethod() throws SystemException, NotSupportedException {
         // Start a new transaction
-        _beanManagedTransaction.begin();
+//        _beanManagedTransaction.begin();
     }
 
     @AfterEach
     void afterEachTestMethod() throws SystemException {
         // Rollback the transaction
-        _beanManagedTransaction.rollback();
+//        _beanManagedTransaction.rollback();
     }
 
     @Order(1)
@@ -131,7 +130,7 @@ public class JakartaPersistenceStudentServiceImplementationArquillianIT { // The
         var existingStudent = optionalStudent.orElseThrow();
         assertThat(existingStudent)
                 .usingRecursiveComparison()
-                // .ignoringFields("field1", "field2")
+                .ignoringFields("createTime")
                 .isEqualTo(newStudent);
 
     }
@@ -143,10 +142,10 @@ public class JakartaPersistenceStudentServiceImplementationArquillianIT { // The
         Student newStudent = Student.of(faker);
 
         _studentService.createStudent(newStudent);
-        // TODO: change the values of all properties
-        //newStudent.setProperty1(faker.providerName().methodName());
-        //newStudent.setProperty2(faker.providerName().methodName());
-        //newStudent.setProperty3(faker.providerName().methodName());
+
+        newStudent.setFirstName(faker.name().firstName());
+        newStudent.setLastName(faker.name().lastName());
+        newStudent.setCourseSection("DMIT2015-OE01");
 
         // Act
         Student updatedStudent = _studentService.updateStudent(newStudent);
@@ -158,7 +157,7 @@ public class JakartaPersistenceStudentServiceImplementationArquillianIT { // The
         var existingStudent = optionalStudent.orElseThrow();
         assertThat(existingStudent)
                 .usingRecursiveComparison()
-                // .ignoringFields("field1", "field2")
+                 .ignoringFields("createTime","updateTime","version")
                 .isEqualTo(newStudent);
 
     }
@@ -212,36 +211,35 @@ public class JakartaPersistenceStudentServiceImplementationArquillianIT { // The
         var firstActualStudent = studentList.getFirst();
         assertThat(firstActualStudent)
                 .usingRecursiveComparison()
-                // .ignoringFields("field1", "field2")
+                .ignoringFields("createTime")
                 .isEqualTo(firstExpectedStudent);
         // Get the last entity and compare with expected results
         var lastActualStudent = studentList.getLast();
         assertThat(lastActualStudent)
                 .usingRecursiveComparison()
-                // .ignoringFields("field1", "field2")
+                .ignoringFields("createTime")
                 .isEqualTo(lastExpectedStudent);
 
     }
 
     @Order(6)
     @ParameterizedTest
-    // TODO Change the value below
     @CsvSource(value = {
-            "Invalid Property1Value, Property2Value, Property3Value, ExpectedExceptionMessage",
-            "Property1Value, Invalid Property2Value, Property3Value, ExpectedExceptionMessage",
+            " , Less, DMIT2015-A01, First name is required",
+            "Bruce, , DMIT2015-A02, Last name is required",
     }, nullValues = {"null"})
     void givenEntityWithValidationErrors_whenAddEntity_thenThrowException(
-            String property1,
-            String property2,
-            String property3,
+            String firstName,
+            String lastName,
+            String courseSection,
             String expectedExceptionMessage
     ) {
         // Arrange
         Student newStudent = new Student();
-        // TODO uncomment below and set each property of Student using parameter values
-        // newStudent.setProperty1(property1);
-        // newStudent.setProperty2(property2);
-        // newStudent.setProperty3(property3);
+
+        newStudent.setFirstName(firstName);
+        newStudent.setLastName(lastName);
+        newStudent.setCourseSection(courseSection);
 
         try {
             // Act
