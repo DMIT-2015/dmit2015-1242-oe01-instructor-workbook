@@ -44,17 +44,17 @@
 <!--        </properties>-->
 <!--    </persistence-unit>-->
 
-<!--    <persistence-unit name="resource-local-postgresql-jpa-pu" transaction-type="RESOURCE_LOCAL">-->
-<!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+    <persistence-unit name="resource-local-postgresql-jpa-pu" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-<!--        <properties>-->
-<!--            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />-->
-<!--            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost/DMIT2015CourseDB" />-->
-<!--            <property name="jakarta.persistence.jdbc.user" value="user2015" />-->
-<!--            <property name="jakarta.persistence.jdbc.password" value="Password2015" />-->
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost/DMIT2015CourseDB" />
+            <property name="jakarta.persistence.jdbc.user" value="user2015" />
+            <property name="jakarta.persistence.jdbc.password" value="Password2015" />
 
-<!--        </properties>-->
-<!--    </persistence-unit>-->
+        </properties>
+    </persistence-unit>
 
 <!--    <persistence-unit name="resource-local-mysql-jpa-pu" transaction-type="RESOURCE_LOCAL">-->
 <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->

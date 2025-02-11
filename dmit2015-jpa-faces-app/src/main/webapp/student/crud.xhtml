@@ -107,7 +107,6 @@
 
                     <p:outputPanel id="manage-Student-content" class="ui-fluid">
                         <p:outputPanel rendered="#{not empty currentStudentCrudView.selectedStudent}">
-                            <!-- TODO: Add input field for each editable property of the entity -->
                             <div class="field">
                                 <p:outputLabel for="@next">First Name</p:outputLabel>
                                 <p:inputText
@@ -116,7 +115,7 @@
                                 </p:inputText>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="@next">Last 2 Name</p:outputLabel>
+                                <p:outputLabel for="@next">Last Name</p:outputLabel>
                                 <p:inputText
                                         id="lastName"
                                         value="#{currentStudentCrudView.selectedStudent.lastName}">
