@@ -1,10 +1,12 @@
 package dmit2015.faces;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -33,19 +35,19 @@ public class StudentCrudPageSeleniumIT {
         // Use the command `./selenium-manager-linux --browser chrome` to download the webdriver for Chrome browser
         // Use the command `./selenium-manager-linux --browser firefox` to download the webdriver for Firefox browser
         // Uncomment statement below to specify the location of the webdriver file.
-        // System.setProperty("webdriver.chrome.driver", "/home/user2015/.cache/selenium/chromedriver/linux64/132.0.6834.159/chromedriver");
+//         System.setProperty("webdriver.chrome.driver", "/home/user2015/.cache/selenium/chromedriver/linux64/133.0.6943.53/chromedriver");
         System.setProperty("webdriver.gecko.driver", "/snap/bin/geckodriver");
 
-        // WebDriverManager
-        //     .chromedriver()
-        //     .driverVersion("132.0.6834.159")
-        //     .setup();
+         WebDriverManager
+             .chromedriver()
+             .driverVersion("133.0.6943.53")
+             .setup();
 
-        // var chromeOptions = new ChromeOptions();
-        // chromeOptions.addArguments("--remote-allow-origins=*");
-        // driver = new ChromeDriver(chromeOptions);
+         var chromeOptions = new ChromeOptions();
+         chromeOptions.addArguments("--remote-allow-origins=*");
+         driver = new ChromeDriver(chromeOptions);
 
-        driver = new FirefoxDriver();
+//        driver = new FirefoxDriver();
 
         js = (JavascriptExecutor) driver;
     }
@@ -66,10 +68,11 @@ public class StudentCrudPageSeleniumIT {
         Thread.sleep(1000);
     }
 
-    private void setTextValue(String fieldId, String fieldValue) {
+    private void setTextValue(String fieldId, String fieldValue) throws InterruptedException {
         WebElement element = driver.findElement(By.id(fieldId));
         element.clear();
         element.sendKeys(fieldValue);
+        Thread.sleep(500);
     }
 
     private void setPrimeFacesDatePickerValue(String fieldId, String fieldValue) {

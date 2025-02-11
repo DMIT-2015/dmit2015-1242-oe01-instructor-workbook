@@ -89,13 +89,13 @@ public class JakartaPersistenceStudentServiceImplementationArquillianIT { // The
     @BeforeEach
     void beforeEachTestMethod() throws SystemException, NotSupportedException {
         // Start a new transaction
-//        _beanManagedTransaction.begin();
+        _beanManagedTransaction.begin();
     }
 
     @AfterEach
     void afterEachTestMethod() throws SystemException {
         // Rollback the transaction
-//        _beanManagedTransaction.rollback();
+        _beanManagedTransaction.rollback();
     }
 
     @Order(1)
@@ -185,7 +185,7 @@ public class JakartaPersistenceStudentServiceImplementationArquillianIT { // The
 
         // Delete all existing data
         assertThat(_studentService).isNotNull();
-//        _studentService.deleteAllStudents();
+        _studentService.deleteAllStudents();
         // Generate expectedRecordCount number of fake data
         Student firstExpectedStudent = null;
         Student lastExpectedStudent = null;

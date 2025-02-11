@@ -84,4 +84,9 @@ public class JakartaPersistenceStudentService implements StudentService {
         }
     }
 
+    @Override
+    public void deleteAllStudents() {
+        _entityManager.createQuery("DELETE FROM Student").executeUpdate();
+    }
+
 }

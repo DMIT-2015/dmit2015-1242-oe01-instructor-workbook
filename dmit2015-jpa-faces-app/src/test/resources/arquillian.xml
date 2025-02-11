@@ -10,7 +10,7 @@
 
     <container qualifier="managed" default="true">
         <configuration>
-            <property name="jbossHome">/home/user2015/jdk/server/wildfly-35.0.0.Final</property>
+            <property name="jbossHome">/home/user2015/jdk/server/wildfly-35.0.1.Final</property>
             <!-- To attach a remote debugger to Arquillian from IntelliJ IDEA
              1. Uncomment the javaVmArguments property below
              2. Set a breakpoint in your source code
