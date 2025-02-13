@@ -8,13 +8,10 @@ import net.datafaker.Faker;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.random.RandomGenerator;
 
 /**
  * This Jakarta Persistence class is mapped to a relational database table with the same name.
@@ -42,7 +39,9 @@ public class Student implements Serializable {
     @NotBlank(message = "Last name is required.")
     private String lastName;
     private String courseSection;
-    @Lob
+
+//    @Lob
+    @Column(columnDefinition = "bytea")
     private byte[] picture;
 
 

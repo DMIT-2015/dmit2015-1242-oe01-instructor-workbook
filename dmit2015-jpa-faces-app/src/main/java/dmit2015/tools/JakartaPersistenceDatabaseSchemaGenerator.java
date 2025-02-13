@@ -51,9 +51,11 @@ public class JakartaPersistenceDatabaseSchemaGenerator {
 
     public static void main(String[] args) {
         try {
+//            Logger hibernateLogger = Logger.getLogger("org.hibernate");
+//            hibernateLogger.setLevel(Level.CONFIG);
             Class.forName("org.hibernate.jpa.HibernatePersistenceProvider");
             // The persistenceUnitName can be passed as an argument otherwise it defaults to "local-mssql-dmit2015-jpa-pu"
-            String persistenceUnitName = (args.length == 1) ? args[0] : "local-mssql-dmit2015-jpa-pu";
+            String persistenceUnitName = (args.length == 1) ? args[0] : "resource-local-postgresql-jpa-pu";
             // Create a map that defines properties to control database schema generation.
             Map<String, String> properties = new HashMap<>();
             // Set the map property to drop all mapped database tables then re-create the mapped database tables..
@@ -63,7 +65,7 @@ public class JakartaPersistenceDatabaseSchemaGenerator {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistenceUnitName, properties);
             emf.createEntityManager().close();
             emf.close();
-            System.out.println("Completed generating database schema.");
+            System.out.printf("Successfully generated database schema for entity classes in persistence unit %s.", persistenceUnitName);
         } catch (Exception e) {
             System.err.println("Error generating database data with exception: " + e.getMessage());
         }

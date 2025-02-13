@@ -62,9 +62,9 @@ public class JakartaPersistenceDataGenerator {
             em.getTransaction().commit();
             em.close();
             emf.close();
-            System.out.println("Finished generating data.");
+            System.out.printf("Successfully generated data for entity classes in persistence unit %s.", persistenceUnitName);
         } catch (Exception e) {
-            System.err.println("Error generating database data with exception: " + e.getMessage());
+            System.err.println("Error generating data with exception: " + e.getMessage());
         }
     }
 
