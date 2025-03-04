@@ -3,6 +3,27 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+
+    <!-- Application supports only Sales and Executive role -->
+    <security-role>
+        <role-name>Sales</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Executive</role-name>
+    </security-role>
+    <!-- Restrict access to /student/crud.xhtml to Sales or Executive role -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>SalesAndExecutiveResourceees</web-resource-name>
+            <url-pattern>/student/crud.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Sales</role-name>
+            <role-name>Executive</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+
     
     <security-constraint>
         <web-resource-collection>
