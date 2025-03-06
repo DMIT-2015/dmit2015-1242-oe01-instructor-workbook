@@ -2,9 +2,11 @@ package dmit2015.service;
 
 import dmit2015.model.Student;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.security.enterprise.SecurityContext;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -14,6 +16,9 @@ import java.util.Optional;
 @ApplicationScoped
 public class JakartaPersistenceStudentService implements StudentService {
 
+    @Inject
+    private SecurityContext _securityContext;
+
     // Assign a unitName if there are more than one persistence unit defined in persistence.xml
     @PersistenceContext (unitName="postgresql-jpa-pu")
     private EntityManager _entityManager;
@@ -21,9 +26,15 @@ public class JakartaPersistenceStudentService implements StudentService {
     @Override
     @Transactional
     public Student createStudent(Student student) {
-        // If the primary key is not an identity column then write code below here to
-        // 1) Generate a new primary key value
-        // 2) Set the primary key value for the new entity
+       // Grant access only to auth users with the Sales or DMIT2015.1242.OE01 role.
+        boolean hasRequiredRole = _securityContext.isCallerInRole("Sales")
+                || _securityContext.isCallerInRole("DMIT2015.1242.OE01");
+        if (!hasRequiredRole) {
+            throw new SecurityException("Access denied. You do not have enough permissions to perform this action.");
+        }
+        // Assign the username who create the student
+        String username = _securityContext.getCallerPrincipal().getName();
+        student.setUsername(username);
 
         _entityManager.persist(student);
         return student;
@@ -45,6 +56,25 @@ public class JakartaPersistenceStudentService implements StudentService {
 
     @Override
     public List<Student> getAllStudents() {
+        // Grant access only to auth users with the Sales or DMIT2015.1242.OE01 role.
+        boolean hasRequiredRole = _securityContext.isCallerInRole("Sales")
+                || _securityContext.isCallerInRole("DMIT2015.1242.OE01");
+        if (!hasRequiredRole) {
+            throw new SecurityException("Access denied. You do not have enough permissions to perform this action.");
+        }
+
+        // For the DMIT2015.1242.OE1 role return only Student data
+        // created create the current auth user.
+        String username = _securityContext.getCallerPrincipal().getName();
+        boolean hasDmit2015Role = _securityContext.isCallerInRole("DMIT2015.1242.OE01");
+        if (hasDmit2015Role) {
+            // Return Student data created by the current username
+            return _entityManager.createQuery(
+                    "select o from Student o where o.username = :usernameValue",
+                    Student.class)
+                    .setParameter("usernameValue", username)
+                    .getResultList();
+        }
         return _entityManager.createQuery("SELECT o FROM Student o ", Student.class)
                 .getResultList();
     }

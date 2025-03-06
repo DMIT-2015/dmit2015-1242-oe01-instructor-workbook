@@ -15,8 +15,9 @@
     <!-- Restrict access to /student/crud.xhtml to Sales or DMIT2015.1242.OE01 role -->
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>SalesAndExecutiveResourceees</web-resource-name>
+            <web-resource-name>SalesAndExecutiveResources</web-resource-name>
             <url-pattern>/student/crud.xhtml</url-pattern>
+            <url-pattern>/index.jsp</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>Sales</role-name>
