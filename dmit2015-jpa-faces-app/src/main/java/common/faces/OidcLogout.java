@@ -37,8 +37,34 @@ public class OidcLogout {
     @ConfigProperty(name = "keycloak.oidc.clientSecret")
     private String oidcClientSecret;
 
-
     public String submit() throws ServletException {
+        /*
+        final String logoutUrl = String.format("%s/protocol/openid-connect/logout", oidcProviderURI);
+        Map<String, String> formData = new HashMap<>();
+        formData.put("refresh_token", _openIdContext.getRefreshToken().orElseThrow().getToken());
+        formData.put("client_id", oidcClientId);
+        formData.put("client_secret", oidcClientSecret);
+
+        String encodedFormData = formData.entrySet().stream()
+                .map(entry -> URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8) + "=" +
+                        URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8))
+                .collect(Collectors.joining("&"));
+
+        try (var httpClient = HttpClient.newHttpClient()) {
+            var httpRequest = HttpRequest.newBuilder()
+                    .uri(URI.create(logoutUrl))
+                    .header("Content-Type","application/x-www-form-urlencoded")
+                    .POST(HttpRequest.BodyPublishers.ofString(encodedFormData, StandardCharsets.UTF_8))
+                    .build();
+            var httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            if (httpResponse.statusCode() != 200) {
+                Messages.addGlobalError("Logout failed with status %s", httpResponse.statusCode());
+            }
+        } catch (Exception e) {
+            Messages.addGlobalError("Logout failed with exception %s", e.getMessage());
+        }
+         */
+
         final String logoutUrl = String.format("%s/protocol/openid-connect/logout", oidcProviderURI);
         MultivaluedMap<String, String> formData = new MultivaluedHashMap<>();
         formData.add("refresh_token", _openIdContext.getRefreshToken().orElseThrow().getToken());
@@ -50,7 +76,7 @@ public class OidcLogout {
                      .request(MediaType.APPLICATION_FORM_URLENCODED_TYPE)
                      .post(Entity.form(formData))
         ) {
-            if (httpResponse.getStatusInfo().getFamily() == Response.Status.Family.SUCCESSFUL) {
+            if (httpResponse.getStatusInfo().getFamily() != Response.Status.Family.SUCCESSFUL) {
                 Messages.addGlobalError("Logout failed with status %s", httpResponse.getStatus());
             }
         }

@@ -4,14 +4,15 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
-    <!-- Application supports only Sales and Executive role -->
+    <!-- Application supports only Sales and DMIT2015.1242.OE01 role -->
     <security-role>
         <role-name>Sales</role-name>
     </security-role>
     <security-role>
-        <role-name>Executive</role-name>
+        <role-name>DMIT2015.1242.OE01</role-name>
     </security-role>
-    <!-- Restrict access to /student/crud.xhtml to Sales or Executive role -->
+
+    <!-- Restrict access to /student/crud.xhtml to Sales or DMIT2015.1242.OE01 role -->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>SalesAndExecutiveResourceees</web-resource-name>
@@ -19,12 +20,11 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>Sales</role-name>
-            <role-name>Executive</role-name>
+            <role-name>DMIT2015.1242.OE01</role-name>
         </auth-constraint>
     </security-constraint>
 
 
-    
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>sslResources</web-resource-name>
@@ -75,5 +75,10 @@
         </auth-constraint>
     </security-constraint>
     -->
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/errorpages/403.xhtml</location>
+    </error-page>
 
 </web-app>
