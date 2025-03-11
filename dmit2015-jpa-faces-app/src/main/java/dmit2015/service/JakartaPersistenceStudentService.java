@@ -26,6 +26,11 @@ public class JakartaPersistenceStudentService implements StudentService {
     @Override
     @Transactional
     public Student createStudent(Student student) {
+        // Check if user is authenticated
+        String username = _securityContext.getCallerPrincipal().getName();
+        if (username.equalsIgnoreCase("anonymous")) {
+            throw new SecurityException("Please login first.");
+        }
        // Grant access only to auth users with the Sales or DMIT2015.1242.OE01 role.
         boolean hasRequiredRole = _securityContext.isCallerInRole("Sales")
                 || _securityContext.isCallerInRole("DMIT2015.1242.OE01");
@@ -33,7 +38,7 @@ public class JakartaPersistenceStudentService implements StudentService {
             throw new SecurityException("Access denied. You do not have enough permissions to perform this action.");
         }
         // Assign the username who create the student
-        String username = _securityContext.getCallerPrincipal().getName();
+
         student.setUsername(username);
 
         _entityManager.persist(student);
