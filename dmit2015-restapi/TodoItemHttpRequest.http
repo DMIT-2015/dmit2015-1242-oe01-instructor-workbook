@@ -31,7 +31,7 @@ Content-Type: application/json
 
 {
   "id": 4,
-  "task": "Commit DMIT2015 Assignment 6",
+  "task": "Commit DMIT2015 Assignment 6 Part 1",
   "done": true,
   "version": 0
 }
@@ -39,5 +39,3 @@ Content-Type: application/json
 ### Delete an TodoItem with an id of 2
 DELETE http://localhost:8090/restapi/TodoItems/2
 
-### Delete an TodoItem with an id of 4
-DELETE http://localhost:8090/restapi/TodoItems/4
