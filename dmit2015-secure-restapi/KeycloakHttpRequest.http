@@ -1,0 +1,28 @@
+// Authorize Endpoint
+// {{server}}/auth/realms/{{realm}}/protocol/openid-connect/auth?response_type=code&client_id={{jwtClient}}
+// The token endpoint allows us to retrieve an access token, refresh token, or id token. OAuth 2.0 supports different grant types, like authorization_code, refresh_token, or password.
+// http://localhost:8180/realms/dmit2015realm/protocol/openid-connect/token
+// https://stackoverflow.com/questions/75521972/keycloak-jwt-token-groups-missing
+### Token Request Endpoint
+@keycloakserver = http://localhost:8180
+@realm = dmit2015-realm
+@user1_username = PDAVIS
+@user1_password = Password2015
+@jwtClient = dmit2015-jwt-client
+@jwtClientSecret = 2JlNdnuSEOnzXDFARa0lB2vYMXIo802s
+
+POST {{keycloakserver}}/realms/{{realm}}/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+username={{user1_username}}&password={{user1_password}}&client_id={{jwtClient}}&client_secret={{jwtClientSecret}}&grant_type=password&scope=openid
+
+### UserInfo Request Endpoint
+@user1_access_token = eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBOGpRblZlcEVqel9DTDFqUFB2RUtmRWNRREQ4eW9GdGo0by1lMkRSV3FzIn0.eyJleHAiOjE3NDI4Njc5NDIsImlhdCI6MTc0Mjg2NjE0MiwianRpIjoiOWI0NWYzZGYtZDlhZC00ODNiLTk4MTgtMDljYzg4MzBlYzRiIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL3JlYWxtcy9kbWl0MjAxNS1yZWFsbSIsInN1YiI6IjhlM2MzNjk2LWYzNmMtNDQ2Ni05MjExLWYzYWMxNmRlYjgxMiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImRtaXQyMDE1LWp3dC1jbGllbnQiLCJzaWQiOiI4NTNiYjNhMS0yM2YzLTQxNzctOGVhNC02YmRlOTA4YTM3YzEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIi8qIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJNYXJrZXRpbmciXX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgbWljcm9wcm9maWxlLWp3dCIsInVwbiI6InBkYXZpcyIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlBhdCBEYXZpcyIsImdyb3VwcyI6WyJNYXJrZXRpbmciXSwicHJlZmVycmVkX3VzZXJuYW1lIjoicGRhdmlzIiwiZ2l2ZW5fbmFtZSI6IlBhdCIsImZhbWlseV9uYW1lIjoiRGF2aXMifQ.Fqsz6BEtuFgf_7Buv09XQaapiZ-99UreZCmeP2Mjx3HpC-4egFuO8f3JFBGGk9Nf_w00qLtJ6hyOEIDZtwxuqE7qiHeIFzIzLVAxdYI-dS1QHkn_n8cu-LNgK_P_QYzY9hCUp6ttEY33y-uTsAB5Ie8nW364qDzZ8gU2aCUmDtKWul4MzlgutMbJjLXML3PKdbgyZ2Z3Vs3kvlidrMYmo5jXlEEgR0zH-EDk-GpsZ6MhEl9dETQ82JLVZw-7pAWXcCctEpK3rJej1gKuFG9U0f5TKHowgB246rKcRvF8qgZmZdTPZs9orV1X8GaIjs6qP4WzKSg3NqZWZQFYPWd91A
+GET {{keycloakserver}}/realms/{{realm}}/protocol/openid-connect/userinfo
+Authorization: Bearer {{user1_access_token}}
+
+### GET JWT for JWHALEN
+POST {{keycloakserver}}/realms/{{realm}}/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+username=JWHALEN&password={{user1_password}}&client_id={{jwtClient}}&client_secret={{jwtClientSecret}}&grant_type=password&scope=openid

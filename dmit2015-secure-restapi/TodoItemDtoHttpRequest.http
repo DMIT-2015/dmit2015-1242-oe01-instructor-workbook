@@ -1,0 +1,44 @@
+### Get all TodoItemsDto
+GET http://localhost:8090/restapi/TodoItemsDto
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBOGpRblZlcEVqel9DTDFqUFB2RUtmRWNRREQ4eW9GdGo0by1lMkRSV3FzIn0.eyJleHAiOjE3NDI4Njc5NDIsImlhdCI6MTc0Mjg2NjE0MiwianRpIjoiOWI0NWYzZGYtZDlhZC00ODNiLTk4MTgtMDljYzg4MzBlYzRiIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL3JlYWxtcy9kbWl0MjAxNS1yZWFsbSIsInN1YiI6IjhlM2MzNjk2LWYzNmMtNDQ2Ni05MjExLWYzYWMxNmRlYjgxMiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImRtaXQyMDE1LWp3dC1jbGllbnQiLCJzaWQiOiI4NTNiYjNhMS0yM2YzLTQxNzctOGVhNC02YmRlOTA4YTM3YzEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIi8qIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJNYXJrZXRpbmciXX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgbWljcm9wcm9maWxlLWp3dCIsInVwbiI6InBkYXZpcyIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlBhdCBEYXZpcyIsImdyb3VwcyI6WyJNYXJrZXRpbmciXSwicHJlZmVycmVkX3VzZXJuYW1lIjoicGRhdmlzIiwiZ2l2ZW5fbmFtZSI6IlBhdCIsImZhbWlseV9uYW1lIjoiRGF2aXMifQ.Fqsz6BEtuFgf_7Buv09XQaapiZ-99UreZCmeP2Mjx3HpC-4egFuO8f3JFBGGk9Nf_w00qLtJ6hyOEIDZtwxuqE7qiHeIFzIzLVAxdYI-dS1QHkn_n8cu-LNgK_P_QYzY9hCUp6ttEY33y-uTsAB5Ie8nW364qDzZ8gU2aCUmDtKWul4MzlgutMbJjLXML3PKdbgyZ2Z3Vs3kvlidrMYmo5jXlEEgR0zH-EDk-GpsZ6MhEl9dETQ82JLVZw-7pAWXcCctEpK3rJej1gKuFG9U0f5TKHowgB246rKcRvF8qgZmZdTPZs9orV1X8GaIjs6qP4WzKSg3NqZWZQFYPWd91A
+
+### Get a single TodoItem with an id of 1
+GET http://localhost:8090/restapi/TodoItemsDto/1
+
+### POST a new TodoItem with valid data
+POST http://localhost:8090/restapi/TodoItemsDto
+Content-Type: application/json
+
+{
+  "name": "Start DMIT2015 Assignment 6",
+  "complete": false
+}
+
+### Post a new TodoItem with invalid data
+POST http://localhost:8090/restapi/TodoItemsDto
+Content-Type: application/json
+
+{
+  "name": "     ",
+  "complete": false
+}
+
+### Get a single TodoItem with an id of 4
+GET http://localhost:8090/restapi/TodoItemsDto/4
+
+### Update TodoItem with an id of 4 with valid data
+PUT http://localhost:8090/restapi/TodoItemsDto/4
+Content-Type: application/json
+
+{
+  "id": 4,
+  "name": "Commit and push DMIT2015 Assignment 6",
+  "complete": true,
+  "version": 1
+}
+
+### Delete an TodoItem with an id of 2
+DELETE http://localhost:8090/restapi/TodoItemsDto/2
+
+### Delete an TodoItem with an id of 4
+DELETE http://localhost:8090/restapi/TodoItemsDto/4
