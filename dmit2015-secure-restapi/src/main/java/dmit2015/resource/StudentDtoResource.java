@@ -29,6 +29,7 @@ public class StudentDtoResource {
     @Inject
     private StudentRepository _studentRepository;
 
+    @RolesAllowed({"Marketing","Sales","Administration"})
     @GET    // This method only accepts HTTP GET requests.
     public Response findAllStudentsStudents() {
         return Response.ok(

@@ -27,6 +27,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>9.0.0.CR1</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.36</version>
@@ -208,6 +214,7 @@
                         <layer>jsf</layer>
                         <layer>microprofile-config</layer>
                         <layer>microprofile-rest-client</layer>
+                        <layer>microprofile-jwt</layer>
                     </layers>
 
                     <!-- deploys the app on root web context -->
@@ -227,48 +234,6 @@
             </plugin>
 
 
-            <!-- Plugin to build a bootable JAR for WildFly -->
-            <plugin>
-                <!-- https://docs.wildfly.org/bootablejar/#wildfly_jar_dev_mode -->
-                <!-- mvn wildfly-jar:dev-watch -->
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-jar-maven-plugin</artifactId>
-                <version>12.0.0.Final</version>
-                <configuration>
-                    <feature-pack-location>wildfly@maven(org.jboss.universe:community-universe)#35.0.1.Final</feature-pack-location>
-                    <layers>
-                        <!-- https://docs.wildfly.org/35/Bootable_Guide.html#wildfly_layers -->
-                        <layer>cloud-server</layer>
-                        <layer>microprofile-config</layer>
-                        <layer>microprofile-rest-client</layer>
-                        <layer>jsf</layer>
-                    </layers>
-                    <excluded-layers>
-                        <layer>deployment-scanner</layer>
-                    </excluded-layers>
-                    <plugin-options>
-                        <jboss-fork-embedded>true</jboss-fork-embedded>
-                    </plugin-options>
-                    <!-- https://docs.wildfly.org/bootablejar/#wildfly_jar_enabling_debug -->
-                    <jvmArguments>
-                        <!-- https://www.jetbrains.com/help/idea/attaching-to-local-process.html#attach-to-local -->
-                        <!-- To attach a debugger to the running server from IntelliJ IDEA
-                            1. From the main menu, choose `Run | Attach to Process`
-                            2. IntelliJ IDEA will show the list of running local processes. Select the process with the `xxx-bootable.jar` name to attach to.
-                        -->
-                        <arg>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</arg>
-                    </jvmArguments>
-                    <timeout>180</timeout>
-                    <cloud />
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 </project>

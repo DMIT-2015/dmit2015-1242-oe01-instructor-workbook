@@ -46,21 +46,21 @@ import java.util.Optional;
 public interface StudentMpRestClient {
 
     @POST
-    Response create(Student newStudent);
+    Response create(@HeaderParam("Authorization") String authorizationHeader,Student newStudent);
 
     @GET
-    List<Student> findAll();
+    List<Student> findAll(@HeaderParam("Authorization") String authorizationHeader);
 
     @GET
     @Path("/{id}")
-    Optional<Student> findById(@PathParam("id") Long id);
+    Optional<Student> findById(@HeaderParam("Authorization") String authorizationHeader,@PathParam("id") Long id);
 
     @PUT
     @Path("/{id}")
-    Student update(@PathParam("id") Long id, Student updatedStudent);
+    Student update(@HeaderParam("Authorization") String authorizationHeader,@PathParam("id") Long id, Student updatedStudent);
 
     @DELETE
     @Path("/{id}")
-    void delete(@PathParam("id") Long id);
+    void delete(@HeaderParam("Authorization") String authorizationHeader,@PathParam("id") Long id);
 
 }

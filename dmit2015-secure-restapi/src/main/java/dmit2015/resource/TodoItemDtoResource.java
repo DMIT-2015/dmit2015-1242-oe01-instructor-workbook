@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  *
  */
 
-@RolesAllowed("**")    // Any role are authorized
+@RolesAllowed("Sales")    // The role Sales is permitted
 @ApplicationScoped
 // This is a CDI-managed bean that is created only once during the life cycle of the application
 @Path("TodoItemsDto")	        // All methods of this class are associated this URL path

@@ -46,21 +46,21 @@ import java.util.Optional;
 public interface TodoItemDtoMpRestClient {
 
     @POST
-    Response create(TodoItemDto newTodoItemDto);
+    Response create(@HeaderParam("Authorization") String authorizationHeader,TodoItemDto newTodoItemDto);
 
     @GET
-    List<TodoItemDto> findAll();
+    List<TodoItemDto> findAll(@HeaderParam("Authorization") String authorizationHeader);
 
     @GET
     @Path("/{id}")
-    Optional<TodoItemDto> findById(@PathParam("id") Long id);
+    Optional<TodoItemDto> findById(@HeaderParam("Authorization") String authorizationHeader,@PathParam("id") Long id);
 
     @PUT
     @Path("/{id}")
-    TodoItemDto update(@PathParam("id") Long id, TodoItemDto updatedTodoItemDto);
+    TodoItemDto update(@HeaderParam("Authorization") String authorizationHeader, @PathParam("id") Long id, TodoItemDto updatedTodoItemDto);
 
     @DELETE
     @Path("/{id}")
-    void delete(@PathParam("id") Long id);
+    void delete(@HeaderParam("Authorization") String authorizationHeader,@PathParam("id") Long id);
 
 }

@@ -1,5 +1,6 @@
 package dmit2015.service;
 
+import dmit2015.faces.LoginSession;
 import dmit2015.model.Student;
 import dmit2015.restclient.StudentMpRestClient;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -16,12 +17,16 @@ import java.util.Optional;
 public class MpRestClientStudentService implements StudentService {
 
     @Inject
+    private LoginSession _loginSession;
+
+    @Inject
     @RestClient
     private StudentMpRestClient mpRestClient;
 
     @Override
     public Student createStudent(Student student) {
-        Response response = mpRestClient.create(student);
+        String authorizationHeader = _loginSession.getAuthorization();
+        Response response = mpRestClient.create(authorizationHeader, student);
         if (response.getStatus() != Response.Status.CREATED.getStatusCode()) {
             throw new RuntimeException("Create HTTP request failed : HTTP error code : " + response.getStatus());
         } else {
@@ -35,21 +40,25 @@ public class MpRestClientStudentService implements StudentService {
 
     @Override
     public Optional<Student> getStudentById(Long id) {
-        return mpRestClient.findById(id);
+        String authorizationHeader = _loginSession.getAuthorization();
+        return mpRestClient.findById(authorizationHeader, id);
     }
 
     @Override
     public List<Student> getAllStudents() {
-        return mpRestClient.findAll();
+        String authorizationHeader = _loginSession.getAuthorization();
+        return mpRestClient.findAll(authorizationHeader);
     }
 
     @Override
     public Student updateStudent(Student student) {
-        return mpRestClient.update(student.getId(), student);
+        String authorizationHeader = _loginSession.getAuthorization();
+        return mpRestClient.update(authorizationHeader, student.getId(), student);
     }
 
     @Override
     public void deleteStudentById(Long id) {
-        mpRestClient.delete(id);
+        String authorizationHeader = _loginSession.getAuthorization();
+        mpRestClient.delete(authorizationHeader, id);
     }
 }

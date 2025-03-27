@@ -1,5 +1,6 @@
 package dmit2015.service;
 
+import dmit2015.faces.LoginSession;
 import dmit2015.model.TodoItemDto;
 import dmit2015.restclient.TodoItemDtoMpRestClient;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -16,12 +17,16 @@ import java.util.Optional;
 public class MpRestClientTodoItemDtoService implements TodoItemDtoService{
 
     @Inject
+    private LoginSession _loginSession;
+
+    @Inject
     @RestClient
     private TodoItemDtoMpRestClient mpRestClient;
 
     @Override
     public TodoItemDto createTodoItemDto(TodoItemDto todoItemDto) {
-        try (Response response = mpRestClient.create(todoItemDto)) {
+        String authorizationHeader = _loginSession.getAuthorization();
+        try (Response response = mpRestClient.create(authorizationHeader, todoItemDto)) {
             if (response.getStatus() != Response.Status.CREATED.getStatusCode()) {
                 throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
             } else {
@@ -36,21 +41,25 @@ public class MpRestClientTodoItemDtoService implements TodoItemDtoService{
 
     @Override
     public Optional<TodoItemDto> getTodoItemDtoById(Long id) {
-        return mpRestClient.findById(id);
+        String authorizationHeader = _loginSession.getAuthorization();
+        return mpRestClient.findById(authorizationHeader, id);
     }
 
     @Override
     public List<TodoItemDto> getAllTodoItemDtos() {
-        return mpRestClient.findAll();
+        String authorizationHeader = _loginSession.getAuthorization();
+        return mpRestClient.findAll(authorizationHeader);
     }
 
     @Override
     public TodoItemDto updateTodoItemDto(TodoItemDto todoItemDto) {
-        return mpRestClient.update(todoItemDto.getId(), todoItemDto);
+        String authorizationHeader = _loginSession.getAuthorization();
+        return mpRestClient.update(authorizationHeader, todoItemDto.getId(), todoItemDto);
     }
 
     @Override
     public void deleteTodoItemDtoById(Long id) {
-        mpRestClient.delete(id);
+        String authorizationHeader = _loginSession.getAuthorization();
+        mpRestClient.delete(authorizationHeader, id);
     }
 }
