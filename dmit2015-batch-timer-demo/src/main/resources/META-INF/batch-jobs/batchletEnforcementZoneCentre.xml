@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="batchletEnforcementZoneCentrePoint"
+     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+     version="1.0">
+
+    <!--    <listeners>-->
+    <!--        <listener ref="enforcementZoneCentreJobListener" />-->
+    <!--    </listeners>-->
+
+    <step id="step1">
+        <!--
+                <listeners>
+                    <listener ref="itemStepListener" />
+                </listeners>
+        -->
+        <batchlet ref="enforcementZoneCentreBatchlet">
+            <properties>
+                <property name="input_file" value="/home/user2015/Downloads/All_Photo_Enforcement_Zone_Centre_Points_20250407.csv" />
+            </properties>
+        </batchlet>
+    </step>
+
+</job>
