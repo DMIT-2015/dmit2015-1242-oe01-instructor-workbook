@@ -18,6 +18,11 @@ POST http://localhost:8080/restapi/batch-jobs/chunkEnforcementZoneCentreImportCs
 GET http://localhost:8080/restapi/batch-jobs/1
 
 ###
+# curl -i -X POST http://localhost:8080/restapi/batch-jobs/batchletETLProcessForDWPubsSales
+POST http://localhost:8080/restapi/batch-jobs/batchletETLProcessForDWPubsSales
+
+###
+
 
 
 
