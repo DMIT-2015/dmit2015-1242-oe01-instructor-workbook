@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <title>${pageTitle}</title>
+</head>
+<body>
+<main class="container">
+    <h1 th:text="${pageTitle}"></h1>
+
+    <h2 th:text="${tableName}"></h2>
+    <table>
+        <thead>
+        <tr>
+            <th scope="col" th:each="currentColumnName : ${columnNames}" th:text="${currentColumnName}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row : ${matrix}">
+            <td th:each="cell : ${row}" th:text="${cell}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+
+</html>

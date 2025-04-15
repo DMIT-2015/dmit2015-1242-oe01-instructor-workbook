@@ -6,6 +6,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -22,11 +23,16 @@ public class EnforcementZoneCentreEntityToDatabaseItemWriter extends AbstractIte
     /**
      * Write a list of items returned from the ItemProcessor to a destination data source..
      */
+    @Transactional
     @Override
     public void writeItems(List<Object> items) throws Exception {
         for (Object item : items) {
             EnforcementZoneCentre currentItem = (EnforcementZoneCentre) item;
-            _entityManager.persist(currentItem);
+            try {
+                _entityManager.persist(currentItem);
+            } catch (Exception ignored ) {
+
+            }
         }
     }
 
