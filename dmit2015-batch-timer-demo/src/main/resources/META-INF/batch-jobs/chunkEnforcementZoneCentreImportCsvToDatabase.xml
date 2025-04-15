@@ -8,9 +8,9 @@
         <property name="table_name" value="edmonton_scheduled_photo_enforcement_zone_centre_point"/>
     </properties>
 
-    <!--    <listeners>-->
-    <!--        <listener ref="enforcementZoneCentreJobListener" />-->
-    <!--    </listeners>-->
+    <listeners>
+        <listener ref="enforcementZoneCentreJobListener" />
+    </listeners>
 
     <step id="step1">
         <listeners>

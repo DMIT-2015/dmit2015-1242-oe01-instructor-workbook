@@ -3,9 +3,9 @@
      xmlns="http://xmlns.jcp.org/xml/ns/javaee"
      version="1.0">
 
-    <!--    <listeners>-->
-    <!--        <listener ref="enforcementZoneCentreJobListener" />-->
-    <!--    </listeners>-->
+    <listeners>
+        <listener ref="enforcementZoneCentreJobListener" />
+    </listeners>
 
     <step id="step1">
         <!--

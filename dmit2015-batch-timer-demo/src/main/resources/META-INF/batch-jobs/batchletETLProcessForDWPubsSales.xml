@@ -3,7 +3,7 @@
 
     <listeners>
         <!-- Use a JobListener to delete all existing records and let the batchlet re-create all records.  -->
-        <listener ref="etlProcessForDWPubsSalseListener"/>
+        <listener ref="etlProcessForDWPubsSalesListener"/>
     </listeners>
 
     <step id="dropFKs" next="truncateTables">
